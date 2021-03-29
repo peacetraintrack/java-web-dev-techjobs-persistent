@@ -18,6 +18,13 @@ public class EmployerController {
     @Autowired
     private EmployerRepository employerRepository;
 
+
+    @GetMapping
+    public String displayAllEmployers(Model model) {
+        model.addAttribute("employer", employerRepository.findAll());
+        return "index";
+    }
+
     @GetMapping("add")
     public String displayAddEmployerForm(Model model) {
         model.addAttribute(new Employer());
@@ -31,16 +38,17 @@ public class EmployerController {
         if (errors.hasErrors()) {
             return "employers/add";
         }
-
-        return "redirect:";
+        model.addAttribute("employer", employerRepository.save(newEmployer));
+        return "employers/view";
     }
 
     @GetMapping("view/{employerId}")
     public String displayViewEmployer(Model model, @PathVariable int employerId) {
 
-        Optional optEmployer = null;
-        if (optEmployer.isPresent()) {
-            Employer employer = (Employer) optEmployer.get();
+        Optional<Employer> result= employerRepository.findById(employerId);
+
+        if (result.isPresent()) {
+            Employer employer = (Employer) result.get();
             model.addAttribute("employer", employer);
             return "employers/view";
         } else {

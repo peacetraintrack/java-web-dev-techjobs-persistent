@@ -20,7 +20,7 @@ public class SkillController {
 
 	@GetMapping
 	public String displayAllSkills(Model model) {
-		model.addAttribute("skill", skillRepository.findAll());
+		model.addAttribute("skillDescription", skillRepository.findAll());
 		return "index";
 	}
 
@@ -37,7 +37,7 @@ public class SkillController {
 		if (errors.hasErrors()) {
 			return "skills/add";
 		}
-		model.addAttribute("skill", skillRepository.save(newSkill));
+		model.addAttribute("skillDescription", skillRepository.save(newSkill));
 		return "skills/view";
 	}
 

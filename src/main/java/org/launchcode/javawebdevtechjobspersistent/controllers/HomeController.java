@@ -23,16 +23,16 @@ public class HomeController {
     @RequestMapping("")
     public String index(Model model) {
 
-        model.addAttribute("title", "My Jobs");
+        model.addAttribute("job", "My Jobs");
 
         return "index";
     }
 
     @GetMapping("add")
     public String displayAddJobForm(Model model) {
-        model.addAttribute("title", "Add Job");
+        model.addAttribute("job", "Add Job");
         model.addAttribute(new Job());
-        model.addAttribute("employer", employerRepository.findAll());
+        model.addAttribute("employers", employerRepository.findAll());
         return "add";
     }
 
@@ -41,7 +41,7 @@ public class HomeController {
                                        Errors errors, Model model, @RequestParam int employerId, @RequestParam List<Integer> skills) {
 
         if (errors.hasErrors()) {
-            model.addAttribute("title", "Add Job");
+            model.addAttribute("job", "Add Job");
             return "add";
         }
 

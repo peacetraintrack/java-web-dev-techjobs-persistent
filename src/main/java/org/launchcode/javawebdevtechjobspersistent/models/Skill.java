@@ -24,4 +24,6 @@ public class Skill extends AbstractEntity {
 	public void setSkillDescription(String skillDescription) {
 		this.skillDescription = skillDescription;
 	}
+
+
 }

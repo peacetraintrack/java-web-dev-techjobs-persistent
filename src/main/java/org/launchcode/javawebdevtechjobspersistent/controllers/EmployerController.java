@@ -38,6 +38,7 @@ public class EmployerController {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Employer");
+            model.addAttribute("errorMsg", "Bad Data!");
             return "employers/add";
         }
         employerRepository.save(newEmployer);

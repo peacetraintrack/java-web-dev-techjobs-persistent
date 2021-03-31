@@ -36,6 +36,8 @@ public class SkillController {
 	                                     Errors errors, Model model) {
 
 		if (errors.hasErrors()) {
+			model.addAttribute("title", "Add Skill");
+			model.addAttribute("errorMsg", "Bad Data!");
 			return "skills/add";
 		}
 		    skillRepository.save(newSkill);

@@ -2,6 +2,7 @@ package org.launchcode.javawebdevtechjobspersistent.controllers;
 
 import org.launchcode.javawebdevtechjobspersistent.models.Employer;
 import org.launchcode.javawebdevtechjobspersistent.models.Job;
+import org.launchcode.javawebdevtechjobspersistent.models.Skill;
 import org.launchcode.javawebdevtechjobspersistent.models.data.EmployerRepository;
 import org.launchcode.javawebdevtechjobspersistent.models.data.JobRepository;
 import org.launchcode.javawebdevtechjobspersistent.models.data.SkillRepository;
@@ -56,8 +57,7 @@ public class HomeController {
             model.addAttribute("title", "Add Job");
             model.addAttribute("employers", employerRepository.findAll());
             return "add";
-        }
-
+        } else {
             Optional<Employer> optEmployer = employerRepository.findById(employerId);
 
             if(optEmployer.isPresent()) {
@@ -68,9 +68,13 @@ public class HomeController {
                 jobRepository.save(newJob);
             }
 
+                List<Skill>skillObjs= (List<Skill>) skillRepository.findAllById(skills);
+                model.addAttribute("skills", skillRepository.findAll());
+                newJob.setSkills(skillObjs);
+                jobRepository.save(newJob);
+        }
+                return "redirect:";
 
-
-        return "redirect:";
     }
 
     @GetMapping("view/{jobId}")
